@@ -11,5 +11,4 @@ astra1 ansible_ssh_host=185.168.187.103
 astra2 ansible_ssh_host=185.168.187.106
 astra3 ansible_ssh_host=185.168.187.107
 
-[localhost]
 localhost ansible_ssh_host=127.0.0.1

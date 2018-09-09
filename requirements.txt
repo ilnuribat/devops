@@ -1,0 +1,9 @@
+to clone git repo from bitbucket => 
+  set gitrepo.pem as id_rsa in /root/.ssh/ and also with pubkey
+
+to work with docker_image
+pip install docker
+
+all ssh privkeys are encrypted via one password
+
+password.yml has another password

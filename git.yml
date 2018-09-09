@@ -1,4 +1,7 @@
 - hosts: localhost
+  vars_files: 
+    - passwords.yml
+
   tasks:
     - name: clone git repository
       git:
@@ -6,13 +9,16 @@
         dest: /tmp/test/backend
         depth: 1
       register: gitResult
-    - name: debug
-      debug:
-        msg: "result of git clone {{ gitResult.after }}"
-    # - name: build docker image
-    #   docker_image:
-    #     name: docker.scis.xyz/devops-test
-    # - name: login to docker registry
-    # - name: push to registry
-    # - name: pull in host
-    # - name: run container
+    - name: Docker login
+      docker_login:
+        registry: docker.scis.xyz
+        username: developer
+        password: "{{ docker_registry_password }}"
+    - name: build docker image
+      docker_image:
+        name: docker.scis.xyz/devops-test
+        state: present
+        tag: "{{ gitResult.after }}"
+        path: /tmp/test/backend
+        push: true
+      register: docker_image_result

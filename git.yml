@@ -22,3 +22,7 @@
         path: /tmp/test/backend
         push: true
       register: docker_image_result
+    - name: logout from docker registry
+      docker_login:
+        registry: docker.scis.xyz
+        state: absent

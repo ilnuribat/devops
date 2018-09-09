@@ -5,3 +5,14 @@
         repo: ssh://git@bitbucket.org/guov/guov-kanban-back.git
         dest: /tmp/test/backend
         depth: 1
+      register: gitResult
+    - name: debug
+      debug:
+        msg: "result of git clone {{ gitResult.after }}"
+    # - name: build docker image
+    #   docker_image:
+    #     name: docker.scis.xyz/devops-test
+    # - name: login to docker registry
+    # - name: push to registry
+    # - name: pull in host
+    # - name: run container

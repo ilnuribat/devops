@@ -1,0 +1,7 @@
+- hosts: localhost
+  tasks:
+    - name: clone git repository
+      git:
+        repo: ssh://git@bitbucket.org/guov/guov-kanban-back.git
+        dest: /tmp/test/backend
+        depth: 1

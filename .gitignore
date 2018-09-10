@@ -3,3 +3,5 @@
 passwords.yml
 
 *.retry
+
+.env

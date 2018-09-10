@@ -5,6 +5,7 @@
         repo: ssh://git@bitbucket.org/guov/guov-kanban-back.git
         dest: /tmp/test/backend
         depth: 1
+        version: task_priority
       register: gitResult
 
 - hosts: devstand
@@ -22,19 +23,24 @@
       state: present
   - name: pull image
     docker_image:
-      name: docker.scis.xyz/devops-test-1
+      name: docker.scis.xyz/kanban-backend
       tag: "{{ gitResult.after }}"
       state: present
+  - name: run migrations
+    docker_container:
+      name: migrations
+      state: started
+      image: "docker.scis.xyz/kanban-backend:{{ gitResult.after }}"
+      detach: no
+      network_mode: host
+      recreate: true
+      command: npm run migrate:up
   - name: start container
     docker_container:
-      name: backend_chat
+      name: backend_all
       state: started
-      image: "docker.scis.xyz/devops-test-1:{{ gitResult.after }}"
-      # detach: no
+      image: "docker.scis.xyz/kanban-backend:{{ gitResult.after }}"
       network_mode: host
-      # ports:
-      #   - 8501:8501
-      #   - 4081:4081
       restart_policy: always
       recreate: true
   - name: logout from docker registry

@@ -8,6 +8,7 @@
         repo: ssh://git@bitbucket.org/guov/guov-kanban-back.git
         dest: /tmp/test/backend
         depth: 1
+        version: task_priority
       register: gitResult
     - name: set .env file
       copy:
@@ -20,7 +21,7 @@
         password: "{{ docker_registry_password }}"
     - name: build docker image
       docker_image:
-        name: docker.scis.xyz/devops-test-1
+        name: docker.scis.xyz/kanban-backend
         state: present
         tag: "{{ gitResult.after }}"
         path: /tmp/test/backend

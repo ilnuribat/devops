@@ -1,0 +1,11 @@
+- hosts: astra1
+  gather_facts: false
+  tasks:
+    - name: apt install
+      apt:
+        name: python-pip
+        state: present
+        update_cache: true
+    - name: pip install docker module
+      pip:
+        name: docker

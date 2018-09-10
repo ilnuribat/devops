@@ -9,6 +9,10 @@
         dest: /tmp/test/backend
         depth: 1
       register: gitResult
+    - name: set .env file
+      copy:
+        src: .env
+        dest: /tmp/test/backend/.env
     - name: Docker login
       docker_login:
         registry: docker.scis.xyz
@@ -16,7 +20,7 @@
         password: "{{ docker_registry_password }}"
     - name: build docker image
       docker_image:
-        name: docker.scis.xyz/devops-test
+        name: docker.scis.xyz/devops-test-1
         state: present
         tag: "{{ gitResult.after }}"
         path: /tmp/test/backend

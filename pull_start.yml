@@ -1,0 +1,43 @@
+- hosts: localhost
+  tasks:
+    - name: clone git repository
+      git:
+        repo: ssh://git@bitbucket.org/guov/guov-kanban-back.git
+        dest: /tmp/test/backend
+        depth: 1
+      register: gitResult
+
+- hosts: devstand
+  vars_files:
+  - passwords.yml
+  vars:
+    gitResult: "{{ hostvars['localhost']['gitResult'] }}"
+
+  tasks:
+  - name: login to registry
+    docker_login:
+      registry: docker.scis.xyz
+      username: developer
+      password: "{{ docker_registry_password }}"
+      state: present
+  - name: pull image
+    docker_image:
+      name: docker.scis.xyz/devops-test-1
+      tag: "{{ gitResult.after }}"
+      state: present
+  - name: start container
+    docker_container:
+      name: backend_chat
+      state: started
+      image: "docker.scis.xyz/devops-test-1:{{ gitResult.after }}"
+      # detach: no
+      network_mode: host
+      # ports:
+      #   - 8501:8501
+      #   - 4081:4081
+      restart_policy: always
+      recreate: true
+  - name: logout from docker registry
+    docker_login:
+      registry: docker.scis.xyz
+      state: absent

@@ -1,7 +1,3 @@
-
-
-devstand ansible_ssh_host=185.168.187.103
-
 [debian]
 debian1 ansible_ssh_host=185.168.187.104
 debian2 ansible_ssh_host=185.168.187.105
@@ -13,3 +9,4 @@ astra3 ansible_ssh_host=185.168.187.107
 
 [local]
 localhost ansible_ssh_host=127.0.0.1
+

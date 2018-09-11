@@ -10,10 +10,6 @@
         depth: 1
         version: task_priority
       register: gitResult
-    - name: set .env file
-      copy:
-        src: .env
-        dest: /tmp/test/backend/.env
     - name: Docker login
       docker_login:
         registry: docker.scis.xyz

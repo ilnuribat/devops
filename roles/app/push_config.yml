@@ -1,0 +1,11 @@
+- hosts: astra1
+  tasks:
+    - name: create guov specific dir
+      file:
+        path: /var/lib/guov/backend/
+        recurse: true
+        state: directory
+    - name: push .env to host(s)
+      copy:
+        src: ../../.env
+        dest: /var/lib/guov/backend/

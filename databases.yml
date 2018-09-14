@@ -1,0 +1,5 @@
+- hosts: astra1
+  gather_facts: false
+
+  roles:
+    - postgres

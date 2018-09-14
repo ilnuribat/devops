@@ -1,0 +1,19 @@
+- name: config template 
+  template:
+    src: ../templates/conf.j2
+    dest: /var/lib/guov/postgres/config/config.conf
+- name: container
+  docker_container:
+    name: postgres
+    image: postgres:10
+    restart_policy: unless-stopped
+    recreate: true
+    volumes:
+      - /var/lib/guov/postgres/data:/var/lib/postgresql/data
+      - /var/lib/guov/postgres/config:/var/lib/postgresql/config
+    command: postgres -c 'config_file=/var/lib/postgresql/config/config.conf'
+    env_file: /var/lib/guov/backend/.env
+    ports:
+      - "{{postgres_port}}:5432"
+
+

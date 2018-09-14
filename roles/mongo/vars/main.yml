@@ -1,0 +1,3 @@
+mongo_user: guov
+mongo_password: guov
+mongo_port: 27017

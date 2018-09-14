@@ -7,7 +7,6 @@
     name: postgres
     image: postgres:10
     restart_policy: unless-stopped
-    recreate: true
     volumes:
       - /var/lib/guov/postgres/data:/var/lib/postgresql/data
       - /var/lib/guov/postgres/config:/var/lib/postgresql/config

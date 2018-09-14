@@ -12,7 +12,10 @@
       - /var/lib/guov/postgres/data:/var/lib/postgresql/data
       - /var/lib/guov/postgres/config:/var/lib/postgresql/config
     command: postgres -c 'config_file=/var/lib/postgresql/config/config.conf'
-    env_file: /var/lib/guov/backend/.env
+    env:
+      POSTGRES_PASSWORD: "{{ postgres_password }}"
+      POSTGRES_USER: "{{ postgres_user }}"
+      POSTGRES_DB: "{{ postgres_database }}"
     ports:
       - "{{postgres_port}}:5432"
 

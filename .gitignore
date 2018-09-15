@@ -1,7 +1,5 @@
 *.pem
 
-passwords.yml
-
 *.retry
 
-.env
+*.secret

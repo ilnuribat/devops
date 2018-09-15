@@ -1,0 +1,10 @@
+- name: git clone
+  git:
+    repo: ssh://git@bitbucket.org/guov/guov-kanban-back.git
+    dest: /tmp/test/backend
+    depth: 1
+    version: dev
+  register: git_result
+- name: last commit
+  set_fact:
+    last_commit: "{{ git_result['after'][0:8] }}"

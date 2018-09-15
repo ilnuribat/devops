@@ -1,0 +1,18 @@
+- name: copy deb package
+  copy:
+    src: utils/
+    dest: /tmp/utils/
+  when: ansible_distribution == "Astra Linux (Orel)"
+    
+- name: install deb to resolve gpg sign problems
+  apt: "deb=/tmp/utils/apt_1.4.1astra4_amd64.deb"
+  when: ansible_distribution == "Astra Linux (Orel)"
+
+- name: apt install
+  apt:
+    name: python-pip
+    state: present
+    update_cache: true
+- name: pip install docker module
+  pip:
+    name: docker

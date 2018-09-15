@@ -1,0 +1,7 @@
+- name: container
+  docker_container:
+    image: redis:4
+    name: redis
+    ports:
+      - 6379:6379
+    restart_policy: unless-stopped

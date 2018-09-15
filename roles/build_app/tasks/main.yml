@@ -1,0 +1,17 @@
+- name: Docker login
+  docker_login:
+    registry: docker.scis.xyz
+    username: "{{ docker_login }}"
+    password: "{{ docker_password }}"
+- name: build docker image
+  docker_image:
+    name: docker.scis.xyz/kanban-backend
+    state: present
+    tag: "{{ hostvars['localhost']['last_commit'] }}"
+    path: /tmp/test/backend
+    push: true
+  register: docker_image_result
+- name: logout from docker registry
+  docker_login:
+    registry: docker.scis.xyz
+    state: absent

@@ -1,0 +1,4 @@
+- hosts:
+  - debian3
+  roles:
+    - setup_machine

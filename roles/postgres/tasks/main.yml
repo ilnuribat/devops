@@ -2,11 +2,16 @@
   template:
     src: ../templates/conf.j2
     dest: /var/lib/guov/postgres/config/config.conf
+- name: hba config
+  template:
+    src: ../templates/hba.conf
+    dest: /var/lib/guov/postgres/data/pg_hba.conf
 - name: container
   docker_container:
     name: postgres
     image: postgres:10
     restart_policy: unless-stopped
+    restart: true
     volumes:
       - /var/lib/guov/postgres/data:/var/lib/postgresql/data
       - /var/lib/guov/postgres/config:/var/lib/postgresql/config

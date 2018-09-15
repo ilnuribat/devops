@@ -4,3 +4,4 @@
   roles:
     - postgres
     - mongo
+    - redis

@@ -1,9 +1,13 @@
+- name: Create directory
+  file:
+    path: /var/lib/guov
+    state: directory
 - name: git clone
   git:
-    repo: ssh://git@bitbucket.org/guov/guov-kanban-back.git
-    dest: /tmp/test/backend
+    repo: ssh://git@bitbucket.org/guov/stimul.git
+    dest: /var/lib/guov/stimul
     depth: 1
-    version: menog
+    version: new-back-test
   register: git_result
 - name: last commit
   set_fact:

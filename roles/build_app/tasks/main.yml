@@ -5,13 +5,13 @@
     password: "{{ docker_password }}"
 - name: build docker image
   docker_image:
-    name: docker.scis.xyz/kanban-backend
+    name: docker.scis.xyz/stimul
     state: present
     tag: "{{ hostvars['localhost']['last_commit'] }}"
-    path: /tmp/test/backend
+    path: /var/lib/guov/stimul
     push: true
   register: docker_image_result
-- name: logout from docker registry
-  docker_login:
-    registry: docker.scis.xyz
-    state: absent
+# - name: logout from docker registry
+#   docker_login:
+#     registry: docker.scis.xyz
+#     state: absent

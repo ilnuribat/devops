@@ -3,12 +3,12 @@
     src: env.secret
     dest: /var/lib/guov/backend/.env
 
- - name: login to registry
-   docker_login:
-     registry: docker.scis.xyz
-     username: "{{ docker_login }}"
-     password: "{{ docker_password }}"
-     state: present
+- name: login to registry
+  docker_login:
+    registry: docker.scis.xyz
+    username: "{{ docker_login }}"
+    password: "{{ docker_password }}"
+    state: present
 
 - name: pull image
   docker_image:

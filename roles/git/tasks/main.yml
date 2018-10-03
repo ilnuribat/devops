@@ -7,7 +7,7 @@
     repo: ssh://git@bitbucket.org/guov/stimul.git
     dest: /var/lib/guov/stimul
     depth: 1
-    version: new-back-test
+    version: delivered
   register: git_result
 - name: last commit
   set_fact:

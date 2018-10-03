@@ -2,12 +2,14 @@
   template:
     src: env.secret
     dest: /var/lib/guov/backend/.env
-- name: login to registry
-  docker_login:
-    registry: docker.scis.xyz
-    username: "{{ docker_login }}"
-    password: "{{ docker_password }}"
-    state: present
+
+ - name: login to registry
+   docker_login:
+     registry: docker.scis.xyz
+     username: "{{ docker_login }}"
+     password: "{{ docker_password }}"
+     state: present
+
 - name: pull image
   docker_image:
     name: docker.scis.xyz/stimul
@@ -40,6 +42,8 @@
     # - task
     # - chat
     - main
+- name: docker system prune -f
+  shell: docker system prune -f
 
 # - name: logout from docker registry
 #   docker_login:

@@ -3,6 +3,7 @@
     registry: docker.scis.xyz
     username: "{{ docker_login }}"
     password: "{{ docker_password }}"
+    state: present
 - name: build docker image
   docker_image:
     name: docker.scis.xyz/stimul
@@ -11,6 +12,8 @@
     path: /var/lib/guov/stimul
     push: true
   register: docker_image_result
+- name: docker system prune -f
+  shell: docker system prune -f
 # - name: logout from docker registry
 #   docker_login:
 #     registry: docker.scis.xyz

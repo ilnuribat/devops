@@ -3,3 +3,7 @@
 *.retry
 
 *.secret
+
+jenkins_home
+
+.gpgpass

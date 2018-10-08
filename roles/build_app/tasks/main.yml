@@ -11,10 +11,9 @@
     tag: "{{ hostvars['localhost']['last_commit'] }}"
     path: /var/lib/guov/stimul
     push: true
-  register: docker_image_result
-- name: docker system prune -f
-  shell: docker system prune -f
-# - name: logout from docker registry
-#   docker_login:
-#     registry: docker.scis.xyz
-#     state: absent
+  register: built_image
+- name: built image short id
+  set_fact:
+    short_id: "{{ hostvars.localhost.built_image.image.Id[7:19] }}"
+- name: clear all old images
+  shell: "docker images | grep stimul | grep -v {{ hostvars.localhost.short_id }} | awk '{ print $3 }' | xargs docker rmi -f || true"

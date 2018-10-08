@@ -1,8 +1,7 @@
-# *.pem
-
 *.retry
 
-# *.secret
+*.pem
+*.secret
 
 jenkins_home
 

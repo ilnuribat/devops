@@ -1,5 +1,9 @@
-*.pem
+# *.pem
 
 *.retry
 
-*.secret
+# *.secret
+
+jenkins_home
+
+.ansible_vault_pass

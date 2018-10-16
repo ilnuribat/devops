@@ -1,10 +1,16 @@
-
 - name: pull git repo of ansible scripts
   git:
     repo: ssh://git@bitbucket.org/guov/devops.git
     dest: /var/lib/guov/devops
     depth: 1
-    version: jenkins
+    version: jenkins_splitted
+- name: make devops dir 1000:1000
+  file:
+    group: 1000
+    owner: 1000
+    recurse: yes
+    path: /var/lib/guov/devops
+    state: directory
 - name: send .ansible_vault_pass
   template:
     src: .ansible_vault_pass
@@ -15,6 +21,18 @@
     chdir: /var/lib/guov/devops
 - name: build jenkins images
   docker_image:
-    name: jenkins
+    name: docker.scis.xyz/jenkins
     state: present
-    path: /var/lib/guov/devops
+    path: /var/lib/guov/devops/roles/jenkins
+- name: run jenkins
+  docker_container:
+    name: jenkins
+    image: docker.scis.xyz/jenkins
+    recreate: yes
+    restart_policy: always
+    network_mode: host
+    ports:
+      - 8080:8080
+    volumes:
+      - /var/lib/guov/jenkins/jenkins_home:/var/jenkins_home
+      - /var/lib/guov/devops:/var/lib/devops

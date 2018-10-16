@@ -1,0 +1,4 @@
+- hosts: debian3
+  gather_facts: no
+  roles:
+    - jenkins

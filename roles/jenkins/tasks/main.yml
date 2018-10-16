@@ -1,0 +1,20 @@
+
+- name: pull git repo of ansible scripts
+  git:
+    repo: ssh://git@bitbucket.org/guov/devops.git
+    dest: /var/lib/guov/devops
+    depth: 1
+    version: jenkins
+- name: send .ansible_vault_pass
+  template:
+    src: .ansible_vault_pass
+    dest: /var/lib/guov/devops
+- name: decrypt all private files
+  shell: /var/lib/guov/devops/vault.sh decrypt
+  args:
+    chdir: /var/lib/guov/devops
+- name: build jenkins images
+  docker_image:
+    name: jenkins
+    state: present
+    path: /var/lib/guov/devops

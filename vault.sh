@@ -8,7 +8,7 @@ if [[ $1 = "decrypt" ]]; then
     ansible-vault --vault-password-file=.ansible_vault_pass \
       decrypt "$file.vaulted" \
       --output "$file"
-    chown $USER:$USER $file
+    chown 1000:1000 $file
     chmod 0400 $file
   done
 else

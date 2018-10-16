@@ -2,8 +2,6 @@ FROM jenkins/jenkins
 
 WORKDIR /var/jenkins_home
 
-COPY --chown=jenkins:jenkins jenkins_home .
-
 USER root
 
 # install ansible

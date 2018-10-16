@@ -8,6 +8,7 @@
     dest: /var/lib/guov/stimul
     depth: 1
     version: sprint_2
+    accept_hostkey: yes
   register: git_result
 - name: last commit
   set_fact:

@@ -1,6 +1,6 @@
 #!/bin/bash
 
-files=(gitrepo.pem priv.pem roles/deploy_app/templates/env.secret)
+files=(utils/bitbucket_keys/gitrepo.pem priv.pem roles/deploy_app/templates/env.secret)
 
 if [[ $1 = "decrypt" ]]; then
   for file in "${files[@]}"

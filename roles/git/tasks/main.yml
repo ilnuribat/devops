@@ -1,13 +1,13 @@
 - name: Create directory
   file:
-    path: /tmp/lib/guov
+    path: /var/lib/guov
     state: directory
 - name: git clone
   git:
     repo: ssh://git@bitbucket.org/guov/stimul.git
-    dest: /tmp/lib/guov/stimul
+    dest: /var/lib/guov/stimul
     depth: 1
-    version: new-back-test
+    version: sprint_2
   register: git_result
 - name: last commit
   set_fact:

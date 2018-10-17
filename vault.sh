@@ -1,6 +1,11 @@
 #!/bin/bash
 
-files=(utils/bitbucket_keys/gitrepo.pem priv.pem roles/deploy_app/templates/env.secret)
+files=( \
+  utils/bitbucket_keys/gitrepo.pem \
+  priv.pem \
+  roles/deploy_app/templates/env.secret \
+  inventory/group_vars/docker_registry.yml \
+)
 
 if [[ $1 = "decrypt" ]]; then
   for file in "${files[@]}"

@@ -1,0 +1,7 @@
+- name: start container
+  docker_container:
+    name: busybox_frontend
+    image: "docker.scis.xyz/stimul_busybox:{{ hostvars['localhost']['last_commit'] }}"
+    state: started
+    volumes:
+      frontend_static:/app/build

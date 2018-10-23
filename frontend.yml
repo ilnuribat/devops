@@ -1,4 +1,10 @@
-- hosts: astra1
+- hosts: local
   gather_facts: no
   roles:
+    - git
+    - frontend_build
+- hosts: local
+  gather_facts: no
+  roles:
+    - frontend_deploy
     - nginx

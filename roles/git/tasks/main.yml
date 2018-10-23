@@ -12,7 +12,14 @@
 - name: last commit
   set_fact:
     last_commit: "{{ git_result['after'][0:8] }}"
+- name: last commit message
+  shell: "git log --pretty=\"author: %an, message: '%s', %ar\" -n1"
+  args:
+    chdir: /var/lib/guov/stimul
+  register: latest_commit_message
 - name: debug git clone
   debug:
-    msg: "cloning repo with {{ lookup('env','BACKEND_BRANCH') | default('master', true) }} branch, last commit: {{ last_commit }}"
+    msg: 
+      - "branch: {{ lookup('env','BACKEND_BRANCH') | default('master', true) }}"
+      - "{{ latest_commit_message.stdout }}"
 

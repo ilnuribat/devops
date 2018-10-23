@@ -30,11 +30,11 @@
     image: docker.scis.xyz/jenkins
     recreate: no
     restart: no
-    state: present
+    state: started
     restart_policy: always
     network_mode: host
     ports:
       - 8080:8080
     volumes:
       - /var/lib/guov/jenkins/jenkins_home:/var/jenkins_home
-      - /var/lib/guov/devops:/var/lib/devops
+      - /var/lib/guov/devops:/var/lib/guov/devops

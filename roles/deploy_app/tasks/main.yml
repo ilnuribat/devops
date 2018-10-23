@@ -16,17 +16,6 @@
     tag: "{{ hostvars['localhost']['last_commit'] }}"
     state: present
 
-# - name: run migrations
-#   docker_container:
-#     name: migrations
-#     state: started
-#     image: "docker.scis.xyz/stimul:{{ hostvars['localhost']['last_commit'] }}"
-#     detach: no
-#     network_mode: host
-#     recreate: true
-#     command: npm run migrate:up
-#     env_file: /var/lib/guov/backend/.env
-
 - name: start container
   docker_container:
     name: "stimul_{{ item }}"

@@ -8,6 +8,33 @@
   apt: "deb=/tmp/utils/apt_1.4.1astra4_amd64.deb"
   when: ansible_distribution == "Astra Linux (Orel)"
 
+- name: install additional packages
+  apt:
+    pkg: "{{ item }}"
+    state: present
+    update_cache: yes
+  loop:
+    - apt-transport-https
+    - ca-certificates
+    - curl
+    - gnupg2
+    - software-properties-common
+- name: install docker - add sign keys
+  apt_key:
+    url: https://download.docker.com/linux/debian/gpg
+    state: present
+- name: install docker - add apt repo
+  apt_repository:
+    repo: "deb [arch=amd64] https://download.docker.com/linux/debian {{ ansible_distribution_release }} stable"
+    filename: docker
+- name: install docker package
+  apt:
+    pkg: "{{ item }}"
+    state: present
+    update_cache: yes
+  loop:
+    - docker-ce
+
 - name: apt install
   apt:
     name: python-pip

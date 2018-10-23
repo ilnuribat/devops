@@ -7,8 +7,12 @@
     repo: ssh://git@bitbucket.org/guov/stimul.git
     dest: /var/lib/guov/stimul
     depth: 1
-    version: delivered
+    version: "{{ lookup('env','BACKEND_BRANCH') | default('master', true) }}"
   register: git_result
 - name: last commit
   set_fact:
     last_commit: "{{ git_result['after'][0:8] }}"
+- name: debug git clone
+  debug:
+    msg: "cloning repo with {{ lookup('env','BACKEND_BRANCH') | default('master', true) }} branch, last commit: {{ last_commit }}"
+

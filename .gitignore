@@ -1,9 +1,10 @@
-*.pem
-
 *.retry
 
+*.pem
 *.secret
 
 jenkins_home
 
-.gpgpass
+.ansible_vault_pass
+
+docker_registry.yml

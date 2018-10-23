@@ -7,7 +7,7 @@
     repo: ssh://git@bitbucket.org/guov/stimul.git
     dest: /var/lib/guov/stimul
     depth: 1
-    version: "{{ lookup('env','BACKEND_BRANCH') | default('master', true) }}"
+    version: "{{ lookup('env','BRANCH') | default('dev', true) }}"
   register: git_result
 - name: last commit
   set_fact:
@@ -20,6 +20,6 @@
 - name: debug git clone
   debug:
     msg: 
-      - "branch: {{ lookup('env','BACKEND_BRANCH') | default('master', true) }}"
+      - "branch: {{ lookup('env','BRANCH') | default('dev', true) }}"
       - "{{ latest_commit_message.stdout }}"
 

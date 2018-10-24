@@ -32,8 +32,8 @@
 # - name: docker system prune -f
 #   shell: docker system prune -f
 
-- name: clear all old images
-  shell: "docker images | grep stimul | grep -v {{ hostvars.localhost.short_id }} | awk '{ print $3 }' | xargs docker rmi -f || true"
+# - name: clear all old images
+#   shell: "docker images | grep stimul | grep -v {{ hostvars.localhost.last_commit }} | awk '{ print $3 }' | xargs docker rmi -f || true"
 
 # - name: logout from docker registry
 #   docker_login:

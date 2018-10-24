@@ -13,7 +13,7 @@
     state: started
     detach: no
     env:
-      REACT_APP_ENDPOINT: localhost:8500
+      REACT_APP_ENDPOINT: 185.168.187.103:8500
     volumes:
       /var/lib/guov/frontend_static:/app/build
 - name: busybox with frontend static

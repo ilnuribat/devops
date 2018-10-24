@@ -3,7 +3,7 @@
     repo: ssh://git@bitbucket.org/guov/devops.git
     dest: /var/lib/guov/devops
     depth: 1
-    version: jenkins_splitted
+    version: master
 - name: make devops dir 1000:1000
   file:
     group: 1000

@@ -12,7 +12,7 @@
     image: nginx
     volumes:
       - /var/lib/guov/nginx/nginx.conf:/etc/nginx/nginx.conf
-      - frontend_static:/app/static
+      - "frontend_static{{ hostvars['localhost']['last_commit'] }}:/app/static"
     network_mode: host
     restart_policy: always
     restart: yes

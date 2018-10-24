@@ -4,4 +4,4 @@
     image: "docker.scis.xyz/stimul_busybox:{{ hostvars['localhost']['last_commit'] }}"
     state: started
     volumes:
-      frontend_static:/app/build
+      "frontend_static{{ hostvars['localhost']['last_commit'] }}:/app/build"

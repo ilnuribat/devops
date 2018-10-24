@@ -3,7 +3,7 @@
   roles:
     - git
     - frontend_build
-- hosts: local
+- hosts: astra1
   gather_facts: no
   roles:
     - frontend_deploy

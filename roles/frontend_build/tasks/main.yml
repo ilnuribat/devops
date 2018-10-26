@@ -1,4 +1,9 @@
-# git уже склонирован
+- name: Docker login
+  docker_login:
+    registry: docker.scis.xyz
+    username: "{{ docker_login }}"
+    password: "{{ docker_password }}"
+    state: present
 - name: build front image
   docker_image:
     name: docker.scis.xyz/stimul_front
@@ -15,7 +20,7 @@
     env:
       REACT_APP_ENDPOINT: 185.168.187.103:8500
     volumes:
-      /var/lib/guov/frontend_static:/app/build
+      /var/lib/guov/frontend_static:/app/static
 - name: busybox with frontend static
   docker_image:
     name: docker.scis.xyz/stimul_busybox

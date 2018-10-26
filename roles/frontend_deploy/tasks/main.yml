@@ -1,3 +1,9 @@
+- name: Docker login
+  docker_login:
+    registry: docker.scis.xyz
+    username: "{{ docker_login }}"
+    password: "{{ docker_password }}"
+    state: present
 - name: start container
   docker_container:
     name: busybox_frontend

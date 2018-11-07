@@ -16,3 +16,7 @@ localhost
 [local]
 localhost ansible_ssh_host=127.0.0.1
 
+[domain]
+astra1 domain_name=dev.scis.xyz
+astra3 domain_name=docker.scis.xyz
+debian3 domain_name=ci.scis.xyz

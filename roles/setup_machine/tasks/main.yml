@@ -42,4 +42,7 @@
     update_cache: true
 - name: pip install docker module
   pip:
-    name: docker
+    name: "{{ item }}"
+  loop:
+    - docker
+    - pyOpenSSL

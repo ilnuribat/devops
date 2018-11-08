@@ -1,0 +1,35 @@
+- hosts: domain
+  gather_facts: false
+  tasks:
+    - name: create dir
+      file:
+        path: /var/lib/guov/ssl
+        state: directory
+    - name: generate rsa keys
+      openssl_privatekey:
+        path: "/var/lib/guov/ssl/{{ item }}"
+      loop:
+        - private.pem
+        - account.key
+    - name: generate csr
+      openssl_csr:
+        common_name: "{{ domain_name }}"
+        privatekey_path: /var/lib/guov/ssl/private.pem
+        path: /var/lib/guov/ssl/domain.csr
+    - name: first step
+      acme_certificate:
+        account_key_src: /var/lib/guov/ssl/account.key
+        csr: /var/lib/guov/ssl/domain.csr
+        fullchain_dest: /var/lib/guov/ssl/result_fullchain_dest.crt
+      register: first_step_result
+    - name: second step
+      acme_certificate:
+        account_key_src: /var/lib/guov/ssl/account.key
+        csr: /var/lib/guov/ssl/domain.csr
+        fullchain_dest: /var/lib/guov/ssl/result_fullchain_dest.crt
+        dest: /var/lib/guov/ssl/result_dest.crt
+        chain_dest: /var/lib/guov/ssl/result_chain_dest.crt
+        data: "{{ first_step_result }}"
+
+
+

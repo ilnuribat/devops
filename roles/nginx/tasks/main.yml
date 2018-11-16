@@ -12,6 +12,7 @@
     image: nginx
     volumes:
       - /var/lib/guov/nginx/nginx.conf:/etc/nginx/nginx.conf
+      - /etc/letsencrypt/live/dev.scis.xyz/:/certs/
       - "frontend_static{{ hostvars['localhost']['last_commit'] }}:/app/static"
     network_mode: host
     restart_policy: always

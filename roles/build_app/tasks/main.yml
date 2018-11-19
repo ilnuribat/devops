@@ -15,5 +15,5 @@
 - name: built image short id
   set_fact:
     short_id: "{{ hostvars.localhost.built_image.image.Id[7:19] }}"
-# - name: clear all old images
-#   shell: "docker images | grep stimul | grep -v {{ hostvars.localhost.short_id }} | awk '{ print $3 }' | xargs docker rmi -f || true"
+- name: clear all old images
+  shell: "docker images | grep stimul | grep -v {{ hostvars.localhost.short_id }} | awk '{ print $3 }' | xargs docker rmi -f || true"

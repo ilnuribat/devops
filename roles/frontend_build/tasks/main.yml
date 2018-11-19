@@ -29,4 +29,6 @@
     path: /var/lib/guov/frontend_static
     dockerfile: /var/lib/guov/stimul/client/busybox.Dockerfile
     push: yes
+- name: clear all old images
+  shell: "docker images | grep stimul | grep -v {{ hostvars.localhost.short_id }} | awk '{ print $3 }' | xargs docker rmi -f || true"
 

@@ -11,3 +11,5 @@
     state: started
     volumes:
       "frontend_static{{ hostvars['localhost']['last_commit'] }}:/app/build"
+- name: clear all old images
+  shell: "docker images | grep stimul | grep -v {{ hostvars.localhost.last_commit }} | awk '{ print $3 }' | xargs docker rmi -f || true"

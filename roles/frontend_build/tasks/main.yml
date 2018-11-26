@@ -8,27 +8,27 @@
   docker_image:
     name: docker.scis.xyz/stimul_front
     state: present
-    tag: "{{ hostvars['localhost']['last_commit'] }}"
+    tag: "{{ hostvars.localhost.last_commit }}"
     path: /var/lib/guov/stimul/client
     push: no
 - name: build front static files
   docker_container:
     name: build_front
-    image: "docker.scis.xyz/stimul_front:{{ hostvars['localhost']['last_commit'] }}"
+    image: "docker.scis.xyz/stimul_front:{{ hostvars.localhost.last_commit }}"
     state: started
     detach: no
     env:
-      REACT_APP_ENDPOINT: 185.168.187.103:8500
+      REACT_APP_ENDPOINT: dev.scis.xyz:8500
     volumes:
       /var/lib/guov/frontend_static:/app/static
 - name: busybox with frontend static
   docker_image:
     name: docker.scis.xyz/stimul_busybox
     state: present
-    tag: "{{ hostvars['localhost']['last_commit'] }}"
+    tag: "{{ hostvars.localhost.last_commit }}"
     path: /var/lib/guov/frontend_static
     dockerfile: /var/lib/guov/stimul/client/busybox.Dockerfile
     push: yes
-# - name: clear all old images
-#   shell: "docker images | grep stimul | grep -v {{ hostvars.localhost.short_id }} | awk '{ print $3 }' | xargs docker rmi -f || true"
+- name: clear all old images
+  shell: "docker images | grep stimul | grep -v {{ hostvars.localhost.last_commit }} | awk '{ print $3 }' | xargs docker rmi -f || true"
 

@@ -21,5 +21,6 @@
   debug:
     msg: 
       - "branch: {{ lookup('env','BRANCH') | default('dev', true) }}"
+      - "commit hash: {{ last_commit }}"
       - "{{ latest_commit_message.stdout }}"
 

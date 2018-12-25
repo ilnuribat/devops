@@ -4,6 +4,10 @@
     username: "{{ docker_login }}"
     password: "{{ docker_password }}"
     state: present
+- name: template .env
+  template:
+    src: .env
+    dest: /var/lib/guov/stimul/client/.env
 - name: build front image
   docker_image:
     name: docker.scis.xyz/stimul_front
@@ -17,8 +21,6 @@
     image: "docker.scis.xyz/stimul_front:{{ hostvars.localhost.last_commit }}"
     state: started
     detach: no
-    env:
-      REACT_APP_ENDPOINT: dev.scis.xyz:8500
     volumes:
       /var/lib/guov/frontend_static:/app/static
 - name: busybox with frontend static

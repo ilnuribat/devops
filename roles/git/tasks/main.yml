@@ -8,6 +8,7 @@
     dest: /var/lib/guov/stimul
     depth: 1
     version: "{{ lookup('env','BRANCH') | default('dev', true) }}"
+    force: true
   register: git_result
 - name: last commit
   set_fact:

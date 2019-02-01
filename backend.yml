@@ -1,9 +1,11 @@
 - hosts: localhost
   gather_facts: no
   roles:
-    - git
-    - build_app
+    - role: git
+      vars:
+        repo_url: "backstimul"
+    - build_backend
 - hosts: astra1
   gather_facts: no
   roles:
-    - deploy_app
+    - deploy_backend

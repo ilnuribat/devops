@@ -1,13 +1,9 @@
-- name: Create directory
-  file:
-    path: /var/lib/guov
-    state: directory
 - name: git clone
   git:
-    repo: ssh://git@bitbucket.org/guov/stimul.git
-    dest: /var/lib/guov/stimul
+    repo: "ssh://git@bitbucket.org/guov/{{ repo_url }}.git"
+    dest: "/var/lib/guov/{{ repo_url }}"
     depth: 1
-    version: "{{ lookup('env','BRANCH') | default('dev', true) }}"
+    version: "{{ lookup('env','BRANCH') | default('master', true) }}"
     force: true
   register: git_result
 - name: last commit
@@ -16,7 +12,7 @@
 - name: last commit message
   shell: "git log --pretty=\"author: %an, message: '%s', %ar\" -n1"
   args:
-    chdir: /var/lib/guov/stimul
+    chdir: "/var/lib/guov/{{ repo_url }}"
   register: latest_commit_message
 - name: debug git clone
   debug:
@@ -24,4 +20,3 @@
       - "branch: {{ lookup('env','BRANCH') | default('dev', true) }}"
       - "commit hash: {{ last_commit }}"
       - "{{ latest_commit_message.stdout }}"
-

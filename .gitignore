@@ -8,3 +8,5 @@ jenkins_home
 .ansible_vault_pass
 
 docker_registry.yml
+
+*.swp

@@ -6,14 +6,14 @@
     state: present
 - name: build docker image
   docker_image:
-    name: docker.scis.xyz/stimul
+    name: docker.scis.xyz/backend
     state: present
     tag: "{{ hostvars.localhost.last_commit }}"
-    path: /var/lib/guov/stimul
+    path: /var/lib/guov/backstimul
     push: true
   register: built_image
 - name: built image short id
   set_fact:
     short_id: "{{ hostvars.localhost.built_image.image.Id[7:19] }}"
 - name: clear all old images
-  shell: "docker images | grep stimul | grep -v {{ hostvars.localhost.last_commit }} | awk '{ print $3 }' | xargs docker rmi -f || true"
+  shell: "docker images | grep backend | grep -v {{ hostvars.localhost.last_commit }} | awk '{ print $3 }' | xargs docker rmi -f || true"

@@ -12,28 +12,24 @@
 
 - name: pull image
   docker_image:
-    name: docker.scis.xyz/stimul
-    tag: "{{ hostvars['localhost']['last_commit'] }}"
+    name: docker.scis.xyz/backend
+    tag: "{{ hostvars.localhost.last_commit }}"
     state: present
 
 - name: start container
   docker_container:
-    name: "stimul_{{ item }}"
+    name: "backend"
     state: started
-    image: "docker.scis.xyz/stimul:{{ hostvars['localhost']['last_commit'] }}"
+    image: "docker.scis.xyz/backend:{{ hostvars.localhost.last_commit }}"
     network_mode: host
     restart_policy: always
     env_file: /var/lib/guov/backend/.env
-    env:
-      MICROSERVICES: "{{ item }}"
-  loop:
-    - main
 
 - name: docker system prune -f
   shell: docker system prune -f
 
 - name: clear all old images
-  shell: "docker images | grep stimul | grep -v {{ hostvars.localhost.last_commit }} | awk '{ print $3 }' | xargs docker rmi -f || true"
+  shell: "docker images | grep backend | grep -v {{ hostvars.localhost.last_commit }} | awk '{ print $3 }' | xargs docker rmi -f || true"
 
 # - name: logout from docker registry
 #   docker_login:

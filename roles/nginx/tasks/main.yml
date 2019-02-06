@@ -6,6 +6,11 @@
   template:
     src: nginx.conf
     dest: /var/lib/guov/nginx/nginx.conf
+- name: mock fact
+  set_fact:
+    last_commit: a400ffd3
+- name: debug
+  debug: "msg={{hostvars.localhost.last_commit}}"
 - name: start container
   docker_container:
     name: nginx
@@ -13,7 +18,7 @@
     volumes:
       - /var/lib/guov/nginx/nginx.conf:/etc/nginx/nginx.conf
       - /etc/letsencrypt/live/dev.scis.xyz/:/certs/
-      - "frontend_static{{ hostvars.localhost.last_commit | default('c4a4ed0f') }}:/app/static"
+      - "frontend_static{{ hostvars.localhost.last_commit }}:/app/static"
       - /var/lib/guov/nginx/pics/:/app/images/
     network_mode: host
     restart_policy: always

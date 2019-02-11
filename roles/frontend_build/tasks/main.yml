@@ -7,30 +7,13 @@
 - name: template .env
   template:
     src: .env
-    dest: /var/lib/guov/stimul/client/.env
+    dest: /var/lib/guov/frontstimul/.env
 - name: build front image
-  docker_image:
-    name: docker.scis.xyz/stimul_front
-    state: present
-    tag: "{{ hostvars.localhost.last_commit }}"
-    path: /var/lib/guov/stimul/client
-    push: no
-- name: build front static files
-  docker_container:
-    name: build_front
-    image: "docker.scis.xyz/stimul_front:{{ hostvars.localhost.last_commit }}"
-    state: started
-    detach: no
-    volumes:
-      /var/lib/guov/frontend_static:/app/static
-- name: busybox with frontend static
   docker_image:
     name: docker.scis.xyz/stimul_busybox
     state: present
     tag: "{{ hostvars.localhost.last_commit }}"
-    path: /var/lib/guov/frontend_static
-    dockerfile: /var/lib/guov/stimul/client/busybox.Dockerfile
+    path: /var/lib/guov/frontstimul
     push: yes
 - name: clear all old images
-  shell: "docker images | grep stimul_front | grep stimul_busybox | grep -v {{ hostvars.localhost.last_commit }} | awk '{ print $3 }' | xargs docker rmi -f || true"
-
+  shell: "docker images | grep frontstimul | grep stimul_busybox | grep -v {{ hostvars.localhost.last_commit }} | awk '{ print $3 }' | xargs docker rmi -f || true"

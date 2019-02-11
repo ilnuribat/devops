@@ -1,0 +1,16 @@
+- name: get cert.pem
+  stat:
+    path: "/etc/letsencrypt/live/{{ domain_name }}/cert.pem"
+  register: cert_answer 
+- name: get privkey.pem 
+  stat:
+    path: "/etc/letsencrypt/live/{{ domain_name }}/privkey.pem"
+  register: privkey_answer
+- name: make it fact
+  set_fact:
+    ssl_certificates:
+      - "{{ cert_answer.stat.lnk_source }}:/certs/cert.pem"
+      - "{{ privkey_answer.stat.lnk_source }}:/certs/privkey.pem"
+- name: append to nginx_volumes
+  set_fact:
+    nginx_volumes: "{{ nginx_volumes + ssl_certificates }}"

@@ -1,7 +1,9 @@
 - hosts: local
   gather_facts: no
   roles:
-    - git
+    - role: git
+      vars:
+        - repo_url: frontstimul
     - frontend_build
 - hosts: astra1
   gather_facts: no

@@ -4,12 +4,18 @@
     username: "{{ docker_login }}"
     password: "{{ docker_password }}"
     state: present
+- name: name of frontend volume
+  set_fact:
+    frontend_volume: "frontend_static{{ hostvars.localhost.last_commit }}:/app/build"
 - name: start container
   docker_container:
     name: busybox_frontend
     image: "docker.scis.xyz/stimul_busybox:{{ hostvars['localhost']['last_commit'] }}"
     state: started
     volumes:
-      "frontend_static{{ hostvars['localhost']['last_commit'] }}:/app/build"
+      "{{ frontend_volume }}"
+- name: append volume to nginx_volumes
+  set_fact:
+    nginx_volumes: "{{ nginx_volumes + [ frontend_volume ] + ['/var/lib/guov/nginx/pics/:/app/images/']}}"
 - name: clear all old images
   shell: "docker images | grep stimul_busybox | grep -v {{ hostvars.localhost.last_commit }} | awk '{ print $3 }' | xargs docker rmi -f || true"

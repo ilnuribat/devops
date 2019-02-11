@@ -28,8 +28,8 @@
   docker_container:
     name: jenkins
     image: docker.scis.xyz/jenkins
-    recreate: no
-    restart: no
+    recreate: yes
+    restart: yes
     state: started
     restart_policy: always
     network_mode: host

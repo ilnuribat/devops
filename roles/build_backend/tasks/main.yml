@@ -12,8 +12,5 @@
     path: /var/lib/guov/backstimul
     push: true
   register: built_image
-- name: built image short id
-  set_fact:
-    short_id: "{{ hostvars.localhost.built_image.image.Id[7:19] }}"
 - name: clear all old images
   shell: "docker images | grep backend | grep -v {{ hostvars.localhost.last_commit }} | awk '{ print $3 }' | xargs docker rmi -f || true"

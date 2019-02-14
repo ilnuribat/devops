@@ -1,16 +1,21 @@
-- name: get cert.pem
+- name: get certs.pem
   stat:
-    path: "/etc/letsencrypt/live/{{ domain_name }}/cert.pem"
-  register: cert_answer 
-- name: get privkey.pem 
-  stat:
-    path: "/etc/letsencrypt/live/{{ domain_name }}/privkey.pem"
-  register: privkey_answer
-- name: make it fact
+    path: "/etc/letsencrypt/live/{{ domain_name }}/{{ item }}"
+    get_attributes: no
+  register: cert_answer
+  loop:
+    - cert.pem
+    - privkey.pem
+    - fullchain.pem
+- name: initialize
   set_fact:
-    ssl_certificates:
-      - "{{ cert_answer.stat.lnk_source }}:/certs/cert.pem"
-      - "{{ privkey_answer.stat.lnk_source }}:/certs/privkey.pem"
+    ssl_certificates: []
+- name: aggregate certs
+  set_fact:
+    ssl_certificates: "{{ ssl_certificates + [item.stat.lnk_source + ':/certs/' + item.item] }}"
+    no_log: True
+  loop: "{{ cert_answer.results }}"
+
 - name: append to nginx_volumes
   set_fact:
     nginx_volumes: "{{ nginx_volumes + ssl_certificates }}"

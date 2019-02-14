@@ -1,0 +1,27 @@
+- name: get certs
+  include_role:
+    name: nginx
+    tasks_from: cert.yml
+- name: append registry volumes
+  set_fact:
+    registry_volumes: "{{ ssl_certificates + ['/root/registry/auth/:/auth'] + ['/var/lib/registry:/var/lib/registry'] }}"
+- name: debug
+  debug:
+    msg: "{{ registry_volumes }}"
+- name: docker container
+  docker_container:
+    name: registry
+    image: registry:2
+    recreate: yes
+    restart: yes
+    ports:
+      - 443:443
+    volumes: "{{ registry_volumes }}"
+    env:
+      REGISTRY_HTTP_TLS_CERTIFICATE: /certs/fullchain.pem
+      REGISTRY_HTTP_TLS_KEY: /certs/privkey.pem
+      REGISTRY_AUTH: htpasswd
+      REGISTRY_HTTP_ADDR: 0.0.0.0:443
+      REGISTRY_AUTH_HTPASSWD_PATH: /auth/htpasswd
+      REGISTRY_AUTH_HTPASSWD_REALM: Registry Realm
+      REGISTRY_STORAGE_DELETE_ENABLED: "true"

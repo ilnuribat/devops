@@ -8,7 +8,7 @@
   register: git_result
 - name: last commit
   set_fact:
-    last_commit: "{{ git_result['after'][0:8] }}"
+    last_commit: "{{ git_result.after }}"
 - name: last commit message
   shell: "git log --pretty=\"author: %an, message: '%s', %ar\" -n1"
   args:
@@ -17,6 +17,6 @@
 - name: debug git clone
   debug:
     msg: 
-      - "branch: {{ lookup('env','BRANCH') | default('dev', true) }}"
+      - "branch: {{ lookup('env','BRANCH') | default('master', true) }}"
       - "commit hash: {{ last_commit }}"
       - "{{ latest_commit_message.stdout }}"

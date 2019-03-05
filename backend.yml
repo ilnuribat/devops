@@ -4,8 +4,21 @@
     - role: git
       vars:
         repo_url: "backstimul"
+    - role: bitbucket_commit
+      vars:
+        build_key: deploy
+        build_name: Сборка и запуск
+        build_description: Проверка сборки и запуска
+        build_state: INPROGRESS
     - build_backend
 - hosts: astra1
   gather_facts: no
   roles:
     - deploy_backend
+    - role: bitbucket_commit
+      vars:
+        build_key: deploy
+        build_name: Сборка и запуск
+        build_description: Проверка сборки и запуска
+        build_state: SUCCESSFUL
+

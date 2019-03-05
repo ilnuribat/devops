@@ -1,0 +1,9 @@
+- hosts: localhost
+  gather_facts: no
+  vars:
+    last_commit: dda2acf #fd1a71d02dfb4919bd8ee46b4602dc42a6b3b3f0c
+    build_key: ansible-test-4
+    build_state: SUCCESSFUL
+    build_name: test
+  roles:
+    - bitbucket_commit

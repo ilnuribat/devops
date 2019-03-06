@@ -11,7 +11,7 @@
         build_description: Проверка сборки и запуска
         build_state: INPROGRESS
     - build_backend
-- hosts: astra1
+- hosts: localhost
   gather_facts: no
   roles:
     - deploy_backend

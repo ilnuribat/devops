@@ -1,0 +1,32 @@
+- name: login to registry
+  docker_login:
+    registry: docker.scis.xyz
+    username: "{{ docker_login }}"
+    password: "{{ docker_password }}"
+    state: present
+
+- name: pull image
+  docker_image:
+    name: docker.scis.xyz/backend
+    tag: "{{ hostvars.localhost.last_commit }}"
+    state: present
+    pull: yes
+
+- name: start container
+  docker_container:
+    name: backend_linter
+    state: started
+    image: "docker.scis.xyz/backend:{{ hostvars.localhost.last_commit }}"
+    detach: no
+    command: npm run lint
+    recreate: yes
+    cleanup: yes
+  register: linter_result
+  ignore_errors: yes
+
+- name: set state of commit
+  set_fact:
+    build_state: "{{ 'FAILED' if linter_result is failed else 'SUCCESSFUL' }}"
+
+- name: docker system prune -f
+  shell: docker system prune -f

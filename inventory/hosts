@@ -12,6 +12,7 @@ astra3 ansible_ssh_host=185.168.187.107
 [docker_registry]
 astra1
 localhost
+debian1
 
 [local]
 localhost ansible_ssh_host=127.0.0.1

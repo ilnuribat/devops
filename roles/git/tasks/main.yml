@@ -8,7 +8,8 @@
   register: git_result
 - name: last commit
   set_fact:
-    last_commit: "{{ git_result.after }}"
+    last_commit: "{{ git_result.after[0:7] }}"
+
 - name: last commit message
   shell: "git log --pretty=\"author: %an, message: '%s', %ar\" -n1"
   args:

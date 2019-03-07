@@ -1,0 +1,22 @@
+- hosts: localhost
+  gather_facts: no
+  roles:
+    - role: git
+      vars:
+        repo_url: "backstimul"
+    - role: bitbucket_commit
+      vars:
+        build_key: linter
+        build_name: Linter check
+        build_description: Проверка Eslint
+        build_state: INPROGRESS
+    - build_backend
+- hosts: debian1
+  gather_facts: no
+  roles:
+    - backend_linter
+    - role: bitbucket_commit
+      vars:
+        build_key: linter
+        build_name: Linter check
+        build_description: Проверка Eslint

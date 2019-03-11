@@ -11,7 +11,7 @@
     body:
       state: "{{ build_state }}"
       key: "{{ build_key }}"
-      url: https://ci.scis.xyz
+      url: "{{ build_url | default('https://ci.scis.xyz#incorrect') }}"
       name: "{{ build_name }}"
       description: "{{ build_description | default('default description')}}"
     return_content: yes

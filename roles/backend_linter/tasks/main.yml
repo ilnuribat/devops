@@ -27,7 +27,7 @@
 - name: set state of commit
   set_fact:
     build_state: "{{ 'FAILED' if linter_result is failed else 'SUCCESSFUL' }}"
-    build_url: "{{ lookup('env','BUILD_URL') + 'console/' | default('https://ci.scis.xyz') }}"
+    build_url: "{{ lookup('env','BUILD_URL') + 'console' | default('https://ci.scis.xyz') }}"
 
 - name: docker system prune -f
   shell: docker system prune -f

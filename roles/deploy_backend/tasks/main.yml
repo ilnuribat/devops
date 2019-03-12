@@ -26,10 +26,6 @@
     recreate: yes
   register: result
 
-- name: debug
-  debug:
-    msg: "{{ result }}"
-
 - name: docker system prune -f
   shell: docker system prune -f
 

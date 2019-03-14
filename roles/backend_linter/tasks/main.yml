@@ -14,12 +14,11 @@
 
 - name: start container
   docker_container:
-    name: backend_linter
+    name: "{{ backend_linter }}_{{ hostvars.localhost.last_commit }}"
     state: started
     image: "docker.scis.xyz/backend:{{ hostvars.localhost.last_commit }}"
     detach: no
     command: npm run lint
-    recreate: yes
     cleanup: yes
   register: linter_result
   ignore_errors: yes

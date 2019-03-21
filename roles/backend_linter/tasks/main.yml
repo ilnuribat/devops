@@ -14,7 +14,7 @@
 
 - name: start container
   docker_container:
-    name: "{{ backend_linter }}_{{ hostvars.localhost.last_commit }}"
+    name: "backend_linter_{{ hostvars.localhost.last_commit }}"
     state: started
     image: "docker.scis.xyz/backend:{{ hostvars.localhost.last_commit }}"
     detach: no
@@ -27,6 +27,3 @@
   set_fact:
     build_state: "{{ 'FAILED' if linter_result is failed else 'SUCCESSFUL' }}"
     build_url: "{{ lookup('env','BUILD_URL') + 'console' | default('https://ci.scis.xyz') }}"
-
-- name: docker system prune -f
-  shell: docker system prune -f

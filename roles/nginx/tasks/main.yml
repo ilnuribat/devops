@@ -9,9 +9,6 @@
   template:
     src: nginx.conf
     dest: /var/lib/guov/nginx/nginx.conf
-- name: debug
-  debug:
-    msg: "{{ nginx_volumes }}"
 - name: start container
   docker_container:
     name: nginx
